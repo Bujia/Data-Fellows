@@ -1,5 +1,5 @@
 # F-Secure
-F-Securen ennakkotehtävä
+F-Securen coding exercise
 
 Exercise 1
 General
