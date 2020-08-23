@@ -28,6 +28,7 @@ Given a URL, you need to generate the following:
 
 
 Exercise 3
+
 This is an exercise to test your ideas for content classification.
 In order to properly solve this, you would need to be able to parse an HTML file.
 
