@@ -37,8 +37,11 @@ Part 2 - Using the dictionary of keywords to classify a website.
 
 Part 1
 1. Hunt for as much websites as you can that you can classify as a Gambling site. These have to be websites in the English language, and you can look for as many websites as possible. List the URLs of the websites in a text file.
+
 Eg:
+
 	text file contains:
+	
 		http://site1.gambling
 		http://sportsbetting.tld
 		http://bettingtips.blog/a.html
