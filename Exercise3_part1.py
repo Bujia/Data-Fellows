@@ -28,8 +28,8 @@ def w_scraper(url, stopwords):
                 wordlist.append(each_word)
     #Remocing unwanted symbols from the words
     for word in wordlist:
-        #repaling non ASCII with ""
-        word = re.sub("\W", "", word)
+        #repaling non ASCII and numbers with ""
+        word = re.sub("\W|\d+", "", word)
         if len(word) > 0:
             c_wordlist.append(word)
         
@@ -37,13 +37,10 @@ def w_scraper(url, stopwords):
 
 #Creating dictiornay from the word list
 def dictionary(wlist):
-    dict_word = {}
+    c= Counter()
     for word in wlist:
-        if word in dict_word:
-            dict_word[word] += 1
-        else:
-            dict_word[word] = 1
-    return dict_word
+        c[word] +=1
+    return c
 
 def main():
 
@@ -56,14 +53,10 @@ def main():
              url = line.strip()
              words = w_scraper(url, stopwords)
              wlist = wlist + words
-            #w_counter(site, wordlist)
-    #Using counter to 
-    dlist = dictionary(wlist)
-    counted = Counter(dlist)
-    #getting the top 100 common words from urls
-    top = counted.most_common(100)
+          
+    data = dictionary(wlist)
     with open('gambling_words.json', 'w') as fout:
-        json.dump(top, fout)   
+        json.dump(data, fout)   
         
 if __name__ == "__main__":
    main()
