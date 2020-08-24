@@ -35,7 +35,15 @@ def w_scraper(url, stopwords):
         
     return c_wordlist
 
-
+#Creating dictiornay from the word list
+def dictionary(wlist):
+    dict_word = {}
+    for word in wlist:
+        if word in dict_word:
+            dict_word[word] += 1
+        else:
+            dict_word[word] = 1
+    return dict_word
 
 def main():
 
@@ -50,10 +58,10 @@ def main():
              wlist = wlist + words
             #w_counter(site, wordlist)
     #Using counter to 
-    counted = Counter(wlist)
-    #getting the top 20 words
+    dlist = dictionary(wlist)
+    counted = Counter(dlist)
+    #getting the top 100 common words from urls
     top = counted.most_common(100)
-    print(top)
     with open('gambling_words.json', 'w') as fout:
         json.dump(top, fout)   
         
