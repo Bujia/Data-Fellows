@@ -35,7 +35,7 @@ you would need some understanding on how to optimize your code.
 
 In the same folder as this question is the file data.json. That is the input that you will use for this exercise.
 
-This exercise is composed of 3 parts, and is separated to 1, 2 & 3 below. While there are 3 parts,
+This exercise is composed of 3 parts, and is separated to 1 & 2 below. While there are 2 parts,
 we are only expecting one Python script as your submission.
 
 Parts 1 & 2 would need to be answered by a single Python script.
