@@ -26,6 +26,56 @@ Given a URL, you need to generate the following:
     
     c.) Links that belong to a different domain.
 
+Exercise 2
+General
+-------
+
+This is an intermediate Python coding exercise. In order to properly solve this,
+you would need some understanding on how to optimize your code.
+
+In the same folder as this question is the file data.json. That is the input that you will use for this exercise.
+
+This exercise is composed of 3 parts, and is separated to 1, 2 & 3 below. While there are 3 parts,
+we are only expecting one Python script as your submission.
+
+Parts 1 & 2 would need to be answered by a single Python script.
+Part 3 can be an explanation, or you may submit a Python script that illustrates your point.
+
+Given the file data.json as your input, perform the following:
+
+1. Create a CSV file, with a header, that contains the fullname, age, address and occupation.
+	
+	- Note: fullname is in "Firstname Lastname: format)
+	
+2. Generate statistics (in JSON format) using the following criteria and answers the following questions:
+	
+	- Use the lastname as the key.
+	
+	- How many people have the same last name?
+	
+	- How many different ages are there?
+	
+	- How many different occupations?
+	
+	- The output should look like:
+	
+		{
+			'lastname1': {
+				'count': number_of_people,
+				'age': {
+					'age1': occurence,
+					'age2': occurence
+				},
+				'address': {
+					'address1': occurence,
+					'address2': occurence
+				},
+				'occupation': {
+					'job1': occurence
+				}
+			}
+		}
+
 
 Exercise 3
 General
