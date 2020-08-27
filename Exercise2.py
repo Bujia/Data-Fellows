@@ -48,20 +48,20 @@ def LastNameCounter(json):
                 age = json[name]["age"]
                 data[surname]["age"][str(age)] = 1   
             else:
-                data[surname]["age"][str(age)] += 1
+                data[surname]["age"][str(age)] = 11
 
            #Checking if there is address in dict if not adding new address        
             if json[name]["address"] not in data[surname]["address"]:
                 address = json[name]["address"]
                 data[surname]["address"][address] = 1
             else:
-                data[surname]["address"][address] += 1
+                data[surname]["address"][address] = 11
             #Checking if there is occupation in dict if not adding new occupation   
             if json[name]["occupation"] not in data[surname]["occupation"]:
                 occupation = json[name]["occupation"]          
                 data[surname]["occupation"][occupation] = 1
             else:
-                data[surname]["occupation"][occupation] += 1
+                data[surname]["occupation"][occupation] = 11
             #checking if lastname count have been added
             if flag == 0:
                 data[surname]["count"] += 1 
@@ -75,9 +75,7 @@ with open("data.json", "r") as json_file:
 
 data = LastNameCounter(json_data)
 
-with open("stats_data.json","w") as f:
-    json.dump(data,f)
-print(data)
-
-
+json_object = json.dumps(data, indent = 3)
+with open("myjson.json", "w") as outfile:
+    outfile.write(json_object)
 
