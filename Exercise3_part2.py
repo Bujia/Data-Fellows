@@ -26,7 +26,7 @@ def w_scaper(url, stopwords):
     c_wordlist = []
     #Fetching the sites sources code
     source_code = requests.get(url).text
-    soup = BeautifulSoup(source_code, "html.parser") 
+    soup = BeautifulSoup(source_code, "html.parser")
     for each_text in soup.findAll("div"): 
         content = each_text.text
         #convert text to lowercase and splitting the sentences
@@ -52,6 +52,15 @@ def dictionary(wlist):
         c[word] +=1
     return c  
 
+def check_similarity(data, dlist):
+        #getting the top common words from urls
+        data1 = heapq.nlargest(100, data, key = data.get)
+        data2 = heapq.nlargest(10, dlist, key = dlist.get)
+        similarity=difflib.SequenceMatcher(None,data2,data1).ratio()
+        if similarity > 0.05:
+            print("Gambling site")
+        else:
+            print("Non-Gambling site")
 def main():
     try:
         f1 = open("stopwords.txt", "r")
@@ -64,14 +73,7 @@ def main():
         check_url(url)
         wlist = w_scaper(url, stopwords)
         dlist = dictionary(wlist)    
-        #getting the top common words from urls
-        data1 = heapq.nlargest(100, data, key = data.get)
-        data2 = heapq.nlargest(10, dlist, key = dlist.get)
-        similarity=difflib.SequenceMatcher(None,data2,data1).ratio()
-        if similarity > 0.05:
-            print("Gambling site")
-        else:
-            print("Non-Gambling site")
+        check_similarity(data,dlist)
     except Exception as e:
         print(e)
 
