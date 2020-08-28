@@ -10,27 +10,25 @@ from urllib.parse import urlparse
 import requests
 import bs4
 
-def main():
-   x = sys.argv[1]
+def parse_url(url):
    #Parsing URL to six components
-   site = urlparse(x)
+   site = urlparse(url)
    tld = site[1].split(".")[-1]
    hostname = site[1]
    domain = hostname.split(".")[1:]
    domain = ".".join(domain)
-   path = site[2]
+   path = site[2]    
    
    print("TLD: " + tld)
    print("DOMAIN: " + domain)
    print("HOSTNAME: " + hostname)
    print("PATH: " + path)
-   print("LINKS: ")
    
-   hostlist = []
-   sdomainlist = []
-   domainlist = []
-   
-   res = requests.get(x)
+   return hostname, domain, path
+
+def collect_links(url, hostname, domain, path):
+   hostlist, sdomainlist, domainlist = [], [], []
+   res = requests.get(url)
    soup = bs4.BeautifulSoup(res.text, "lxml")
    #Find all a-tags which contais href string value
    for link in soup.find_all("a", href = True):
@@ -55,18 +53,20 @@ def main():
                sdomainlist.append(link["href"])
            else:
                domainlist.append(link["href"])
-           
-
+   #Printing out all the domain links
+   print("LINKS: ")
    print("Same hostname: ")
-   for y in range(len(hostlist)):
-       print(hostlist[y])
-    
+   print(*hostlist, sep = "\n")
    print("Same domain: ")
-   for z in range(len(sdomainlist)):
-       print(sdomainlist[z])
+   print(*sdomainlist, sep = "\n")
    print("Other domain: ")
-   for a in range(len(domainlist)):
-       print(domainlist[a])
-        
+   print(*domainlist, sep = "\n")
+      
+
+def main():
+   url = sys.argv[1]
+   hostname, domain, path = parse_url(url) 
+   collect_links(url, hostname, domain, path)
+      
 if __name__ == "__main__":
    main()
