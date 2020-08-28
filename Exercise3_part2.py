@@ -67,9 +67,7 @@ def main():
         #getting the top common words from urls
         data1 = heapq.nlargest(100, data, key = data.get)
         data2 = heapq.nlargest(10, dlist, key = dlist.get)
-        print(data2)
         similarity=difflib.SequenceMatcher(None,data2,data1).ratio()
-        print(similarity)
         if similarity > 0.05:
             print("Gambling site")
         else:
