@@ -9,7 +9,14 @@ import sys
 from urllib.parse import urlparse
 import requests
 import bs4
+import validators
 
+def check_url(url):
+    #Check if the url is actual url
+    if not validators.url(url):
+        raise Exception("Url is not valid")
+    
+    
 def parse_url(url):
    #Parsing URL to six components
    site = urlparse(url)
@@ -32,7 +39,7 @@ def collect_links(url, hostname, domain, path):
    soup = bs4.BeautifulSoup(res.text, "lxml")
    #Find all a-tags which contais href string value
    for link in soup.find_all("a", href = True):
-       #exculing non-link from the html
+       #exculding non-link from the html
        if link["href"][0] == "#":
            pass
        #link is only path, need to attach the hostname to the link
@@ -64,9 +71,14 @@ def collect_links(url, hostname, domain, path):
       
 
 def main():
-   url = sys.argv[1]
-   hostname, domain, path = parse_url(url) 
-   collect_links(url, hostname, domain, path)
-      
+   try: 
+       url = sys.argv[1]
+       check_url(url)
+       hostname, domain, path = parse_url(url) 
+       collect_links(url, hostname, domain, path)
+       
+   except Exception as e:
+       print(e)
+          
 if __name__ == "__main__":
    main()
