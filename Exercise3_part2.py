@@ -12,6 +12,13 @@ import sys
 import json
 import heapq
 import difflib
+import validators
+
+def check_url(url):
+    #Check if the url is actual url
+    if not validators.url(url):
+        raise Exception("Url is not valid")
+
 """This function scrapes all the words from given website
 and returns a list of all the words from the website"""
 def w_scaper(url, stopwords):
@@ -46,25 +53,29 @@ def dictionary(wlist):
     return c  
 
 def main():
-    f1 = open("stopwords.txt", "r")
-    stopwords = f1.read()
-    #Loading the most common gamling words
-    with open("gambling_words.json", "r") as json_file:
-        data = json.load(json_file)
-        
-    url = sys.argv[1]
-    wlist = w_scaper(url, stopwords)
-    dlist = dictionary(wlist)    
-    #getting the top common words from urls
-    data1 = heapq.nlargest(100, data, key = data.get)
-    data2 = heapq.nlargest(10, dlist, key = dlist.get)
-    print(data2)
-    similarity=difflib.SequenceMatcher(None,data2,data1).ratio()
-    print(similarity)
-    if similarity > 0.05:
-        print("Gambling site")
-    else:
-        print("Non-Gambling site")
+    try:
+        f1 = open("stopwords.txt", "r")
+        stopwords = f1.read()
+        #Loading the most common gamling words
+        with open("gambling_words.json", "r") as json_file:
+            data = json.load(json_file)
+            
+        url = sys.argv[1]
+        check_url(url)
+        wlist = w_scaper(url, stopwords)
+        dlist = dictionary(wlist)    
+        #getting the top common words from urls
+        data1 = heapq.nlargest(100, data, key = data.get)
+        data2 = heapq.nlargest(10, dlist, key = dlist.get)
+        print(data2)
+        similarity=difflib.SequenceMatcher(None,data2,data1).ratio()
+        print(similarity)
+        if similarity > 0.05:
+            print("Gambling site")
+        else:
+            print("Non-Gambling site")
+    except Exception as e:
+        print(e)
 
 
 if __name__ == "__main__":
