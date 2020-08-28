@@ -19,6 +19,15 @@ def part_one():
     #converting json to csv
     df.to_csv("data.csv")
 
+def part_two():
+    with open("data.json", "r") as json_file:
+        json_data = json.load(json_file)  
+    
+    data = LastNameCounter(json_data)
+    
+    json_object = json.dumps(data, indent = 3)
+    with open("myjson.json", "w") as outfile:
+        outfile.write(json_object)
 
 def LastNameCounter(json):
     data = {}  
@@ -43,15 +52,11 @@ def LastNameCounter(json):
     return data
 
 def main():
-    part_one()
-    with open("data.json", "r") as json_file:
-        json_data = json.load(json_file)  
-    
-    data = LastNameCounter(json_data)
-    
-    json_object = json.dumps(data, indent = 3)
-    with open("myjson.json", "w") as outfile:
-        outfile.write(json_object)
+    try:
+        part_one()
+        part_two()
+    except Exception as e:
+        print(e)
 
 if __name__ == "__main__":
    main()
